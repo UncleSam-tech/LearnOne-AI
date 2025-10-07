@@ -1,5 +1,26 @@
 import { z } from "zod";
 
+export const UserProfileSchema = z.object({
+  id: z.string(),
+  createdAt: z.number(),
+  learningGoal: z.string().optional(),
+  timePerWeek: z.number().optional(),
+  horizon: z.enum(["0-30", "31-90", "90+"]).optional(),
+  preferredModality: z.array(z.enum(["video", "text", "interactive"]))
+    .optional(),
+  constraints: z.array(z.string()).optional(),
+  background: z.array(z.string()).optional(),
+  riskStyle: z.enum(["experimental", "structured"]).optional(),
+});
+
+export type UserProfile = z.infer<typeof UserProfileSchema>;
+
+export const IntakeAnswerSchema = z.object({
+  qid: z.string(),
+  answer: z.union([z.string(), z.number(), z.array(z.string())]),
+});
+export type IntakeAnswer = z.infer<typeof IntakeAnswerSchema>;
+
 export const LessonSchema = z.object({
   id: z.string(),
   title: z.string(),
@@ -56,6 +77,20 @@ export const RecommendationSchema = z.object({
   })),
 });
 export type Recommendation = z.infer<typeof RecommendationSchema>;
+
+export const ProgressSchema = z.object({
+  courseId: z.string(),
+  lessonDone: z.record(z.string(), z.boolean()),
+  attempts: z.array(
+    z.object({
+      assessmentId: z.string(),
+      score: z.number(),
+      passed: z.boolean(),
+      timestamp: z.number(),
+    })
+  ),
+});
+export type Progress = z.infer<typeof ProgressSchema>;
 
 // purpose routing
 export const PurposeSchema = z.enum([
