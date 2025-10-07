@@ -8,7 +8,7 @@ export function sanitizeToHtml(input: string): string {
   if (!windowAny || typeof windowAny === "undefined") {
     // Server-side: return plain text escaped
     return truncated.replace(/[&<>"']/g, (c) =>
-      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" } as const)[c]
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" } as const)[c] || c
     );
   }
   return DOMPurify.sanitize(truncated, { ALLOW_UNKNOWN_PROTOCOLS: false });
