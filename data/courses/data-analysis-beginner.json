@@ -1,0 +1,13 @@
+{
+  "id": "data-analysis-beginner",
+  "skillId": "data-analysis",
+  "level": "beginner",
+  "title": "Data Analysis Foundations (Sheets → SQL)",
+  "estimatedHours": 10,
+  "outline": [
+    { "id": "l1", "title": "What is data analysis?", "content": "Overview and Nigeria-friendly examples." },
+    { "id": "l2", "title": "Sheets basics", "content": "Sorting, filtering, formulas." }
+  ],
+  "assessmentIds": ["assess-da-beg-1"]
+}
+

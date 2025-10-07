@@ -1,0 +1,11 @@
+{
+  "id": "data-analysis",
+  "name": "Data Analysis",
+  "category": "Analytics",
+  "difficulty": "beginner",
+  "description": "Sheets → SQL → Pandas with low-bandwidth options.",
+  "marketSignals": ["SME demand", "Remote-friendly"],
+  "prerequisites": ["Basic spreadsheets"],
+  "outcomes": ["Analyze datasets", "Build simple dashboards"]
+}
+
