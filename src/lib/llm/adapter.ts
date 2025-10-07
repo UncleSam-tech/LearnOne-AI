@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { Purpose } from "@/src/lib/schemas";
+import { SYSTEM_PROMPT } from "@/src/lib/prompts";
 import {
   RecommendationSchema, CourseSchema, AssessmentSchema, LessonSchema
 } from "@/src/lib/schemas";
@@ -64,6 +65,25 @@ export async function generateViaProxy<TPurpose extends GenPurpose>(
   } catch {
     return await attempt();
   }
+}
+
+
+// Added to mirror exports expected by consumers under "@/lib/llm/adapter"
+export interface LLMAdapter {
+  generate(input: GenInput, signal?: AbortSignal): Promise<unknown>;
+}
+
+export function schemaForPurpose(purpose: GenPurpose) {
+  return PurposeToSchema[purpose];
+}
+
+export async function validateJson<T>(raw: string, schema: z.ZodType<T>): Promise<T> {
+  const parsed = JSON.parse(raw);
+  return schema.parse(parsed);
+}
+
+export function buildSystemPrompt() {
+  return SYSTEM_PROMPT;
 }
 
 
