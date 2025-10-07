@@ -20,7 +20,7 @@ export default function WizardPage() {
     setError(null);
     try {
       const res = await generateViaProxy("skill_rationale", { answers });
-      await setRecommendation(res);
+      await setRecommendation(res as any);
       window.location.href = "/results";
     } catch (e: any) {
       setError("Generation failed. Please retry.");
