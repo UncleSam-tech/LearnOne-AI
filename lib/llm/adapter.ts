@@ -5,16 +5,16 @@ import {
   CourseSchema,
   LessonSchema,
   RecommendationSchema,
-  GenPurpose,
+  Purpose,
 } from "@/lib/schemas";
 
-export type GenInput = { purpose: GenPurpose; payload: any };
+export type GenInput = { purpose: Purpose; payload: any };
 
 export interface LLMAdapter {
   generate(input: GenInput, signal?: AbortSignal): Promise<unknown>;
 }
 
-export function schemaForPurpose(purpose: GenPurpose) {
+export function schemaForPurpose(purpose: Purpose) {
   switch (purpose) {
     case "skill_rationale":
       return RecommendationSchema;
