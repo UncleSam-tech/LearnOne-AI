@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'v1';
+const CACHE_VERSION = 'v3';
 const APP_SHELL = [
   '/',
   '/manifest.webmanifest',
@@ -8,6 +8,7 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_VERSION).then((cache) => cache.addAll(APP_SHELL))
   );
+  self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
@@ -16,6 +17,7 @@ self.addEventListener('activate', (event) => {
       Promise.all(keys.map((k) => (k !== CACHE_VERSION ? caches.delete(k) : undefined)))
     )
   );
+  self.clients.claim();
 });
 
 self.addEventListener('fetch', (event) => {
