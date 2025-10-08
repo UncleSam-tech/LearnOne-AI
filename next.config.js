@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  experimental: { serverActions: { allowedOrigins: ['localhost:3000'] } },
   async headers() {
     return [
       {
@@ -15,11 +14,14 @@ const nextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              "script-src 'self'",
+              // Next needs inline boot scripts; allow eval for some vendor bundles & devtools
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:",
               "style-src 'self' 'unsafe-inline'",
-              "img-src 'self' data:",
+              "img-src 'self' data: blob:",
               "font-src 'self' data:",
-              "connect-src 'self' https://openrouter.ai",
+              // allow your API host(s); keep OpenRouter if you call it server-side
+              "connect-src 'self' https://openrouter.ai https://vitals.vercel-insights.com",
+              "worker-src 'self' blob:",
               "frame-ancestors 'self'",
               "base-uri 'self'",
               "form-action 'self'",
@@ -31,5 +33,3 @@ const nextConfig = {
   }
 };
 module.exports = nextConfig;
-
-
